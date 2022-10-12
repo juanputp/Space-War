@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float movementSpeed = 5f;
 
-    // Start is called before the first frame update
+    // Start is called before the first frame update 
     void Start()
     {
 
@@ -27,11 +27,9 @@ public class Player : MonoBehaviour
         //get the Input from Horizontal and Vertical axis
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
-        //update the position
-        transform.position = transform.position + new Vector3(horizontalInput * movementSpeed * Time.deltaTime, verticalInput * movementSpeed * Time.deltaTime, 0);
-
-        //output to log the position change
+        Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
+        transform.Translate(direction * movementSpeed * Time.deltaTime);
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -13.5f, 13.5f),Mathf.Clamp(transform.position.y,-4f, 4f), 0);
         Debug.Log(transform.position);
-
     }
 }
