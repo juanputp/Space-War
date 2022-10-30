@@ -4,14 +4,12 @@ public class DestroyByContact : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("wall"))
+        if(collision.CompareTag("wall") | collision.CompareTag("Player"))
         {
-            //Se autodestruye
             Destroy(gameObject);
-            
         }
 
-        if (collision.CompareTag("asteroid"))
+        if (collision.CompareTag("asteroid") | collision.CompareTag("laser"))
         {
             Destroy(gameObject);
             Destroy(collision.gameObject);

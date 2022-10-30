@@ -3,6 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float movementSpeed = 5f;
+    [SerializeField] private float playerLife = 10;
 
     // Start is called before the first frame update 
     void Start()
@@ -17,8 +18,12 @@ public class Player : MonoBehaviour
         float horizontalInput = 0;
         float verticalInput = 0;
         MoveSpaceShip(horizontalInput, verticalInput);
+        
+        if (playerLife <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
-
 
     void MoveSpaceShip(float horizontalInput, float verticalInput)
     {
@@ -28,6 +33,13 @@ public class Player : MonoBehaviour
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
         transform.Translate(direction * movementSpeed * Time.deltaTime);
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -13.5f, 13.5f),Mathf.Clamp(transform.position.y,-4f, 4f), 0);
-        Debug.Log(transform.position);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("asteroid"))
+        {
+            playerLife -= 5;
+        }
     }
 }

@@ -3,16 +3,18 @@ using UnityEngine;
 public class MoveAsteroid : MonoBehaviour
 {
     private Rigidbody2D rb;
-
-    [Range(-1, -10)]
-    public float velocidad = -5;
+    public float velocidad = 0.5f;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
-        //Aplico movimiento en dirección z positiva (con su velocidad)
-        rb.velocity = transform.forward * velocidad;
-
+        if(transform.position.x <= -13f)
+        {
+            rb.velocity = Vector2.right * velocidad;
+        }
+        else
+        {
+            rb.velocity = Vector2.left * velocidad;
+        }
     }
 }
